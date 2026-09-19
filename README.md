@@ -203,7 +203,7 @@ def add_zero(x):
 - Formalization: [bend.lean](bend2/bend.lean), Bend's core in Lean.
 - Benches: [bench/](bench), every bench used to make the charts above.
 - Formatter: [bend-fmt-lsp](tools/bend-fmt-lsp), a formatting-only Bend 2 language server.
-- Editor: [bend-vscode](tools/bend-vscode), Bend 2 for VS Code: the grammar, and formatting through the server above.
+- Editor: [bend-vscode](tools/bend-vscode), Bend 2 for VS Code: the grammar, the checker's errors on a save, and formatting through the server above.
 
 # Community
 
@@ -245,7 +245,7 @@ def add_zero(x):
 - No Windows (WSL works); on Linux, Window and Audio need X11 and ALSA headers.
 - The hub has no names, versions, accounts or search yet. Packages are hashes.
 - Error messages are terse; no debugger, profiler or REPL.
-- Editor support is highlighting and formatting; there is no completion, hover or diagnostics LSP.
+- Editor support is highlighting, formatting and the checker's own errors; there is no completion or hover LSP.
 - No test framework and no documentation beyond the guide.
 - And more that escape me. Be patient, report bugs and request features!
 

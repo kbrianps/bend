@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as vscode from "vscode";
+import { Checker } from "./check.js";
 import {
   LanguageClient,
   TransportKind,
@@ -43,10 +44,30 @@ function server(context: vscode.ExtensionContext): Executable | undefined {
   return found === undefined ? undefined : runs(found);
 }
 
+// bend checks the file on disk, so a save is what there is to check on
+function watch(context: vscode.ExtensionContext,
+  log: vscode.OutputChannel): void {
+  const checker = new Checker(log);
+  context.subscriptions.push(checker,
+    vscode.workspace.onDidSaveTextDocument((d) => checker.check(d)),
+    vscode.workspace.onDidOpenTextDocument((d) => checker.check(d)),
+    vscode.workspace.onDidCloseTextDocument((d) => checker.forget(d)),
+    vscode.commands.registerCommand("bend.check", () => {
+      const open = vscode.window.activeTextEditor;
+      if (open !== undefined) {
+        checker.check(open.document);
+      }
+    }));
+  for (const open of vscode.workspace.textDocuments) {
+    checker.check(open);
+  }
+}
+
 export async function activate(context: vscode.ExtensionContext):
   Promise<void> {
   const log = vscode.window.createOutputChannel("Bend");
   context.subscriptions.push(log);
+  watch(context, log);
   const found = server(context);
   if (found === undefined) {
     log.appendLine("no " + BIN + " found: highlighting only. Set"

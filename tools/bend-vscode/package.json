@@ -45,13 +45,32 @@
           "type": "string",
           "default": "",
           "markdownDescription": "Path to `bend2-fmt-lsp`, or to its `server.js`. Empty: the sibling `tools/bend-fmt-lsp` checkout is used, then `bend2-fmt-lsp` on the PATH. With none of them, the extension highlights and does not format."
+        },
+        "bend.check.enable": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Check a `.bend` file with the `bend` binary when it is saved, and underline the error it reports."
+        },
+        "bend.check.path": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Path to the `bend` binary. Empty: `bend` on the PATH, then `~/.bend/bin/bend`."
         }
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "bend.check",
+        "title": "Check File",
+        "category": "Bend",
+        "enablement": "editorLangId == bend"
+      }
+    ]
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "vscode:prepublish": "npm run build"
+    "vscode:prepublish": "npm run build",
+    "test": "npm run build && node --test dist/test/*.test.js"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"

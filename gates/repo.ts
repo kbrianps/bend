@@ -76,7 +76,8 @@ allow(/^tools\/bend-fmt-lsp\/src\/(formatter|server)\.ts$/, 8000);
 allow(/^tools\/bend-fmt-lsp\/src\/test\/[a-z_]+\.test\.ts$/, 4000);
 allow(/^tools\/bend-vscode\/(\.gitignore|README\.md|package\.json|package-lock\.json|tsconfig\.json|language-configuration\.json)$/, 4000);
 allow(/^tools\/bend-vscode\/syntaxes\/bend\.tmLanguage\.json$/, 4000);
-allow(/^tools\/bend-vscode\/src\/extension\.ts$/, 8000);
+allow(/^tools\/bend-vscode\/src\/(check|extension|output)\.ts$/, 8000);
+allow(/^tools\/bend-vscode\/src\/test\/[a-z_]+\.test\.ts$/, 4000);
 
 // Gate
 // ====
